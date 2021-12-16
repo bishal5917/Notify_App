@@ -4,12 +4,26 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import ModeCommentIcon from '@mui/icons-material/ModeComment';
 import ShareIcon from '@mui/icons-material/Share';
 
-export default function Items({ post }) {
+export default function Items({ post, socket, user }) {
     const [liked, setLiked] = useState(false)
 
     const handleLiked = () => {
-        setLiked(liked ? false : true)
+        setLiked(true)
+        //creating an event when liked
+        socket.emit('sendNotification', {
+            sender: user,
+            receiver: post.name
+        })
+
     }
+
+    //array.some method in javascript
+    // const ages = [3, 10, 18, 20];
+
+    // let x = ages.some((age) => age === 3)
+    // console.log(x)
+
+
     return (
         <>
             <div className="sharesContainer">

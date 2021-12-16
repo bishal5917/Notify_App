@@ -8,11 +8,44 @@ const io = new Server({
     },
 })
 
+//creating array for online users
+let onlineUsers = []
+
+//function for creating new users
+const addUser = (name, socketId) => {
+    //pushing users into array if there is new user
+    !onlineUsers.some((user) => user.name === name)
+        && onlineUsers.push({ name, socketId })
+}
+
+//function for removing users
+const removeUser = (socketId) => {
+    onlineUsers = onlineUsers.filter((user) => user.socketId !== socketId)
+}
+
+//function for getting users
+const getUser = (name) => {
+    return onlineUsers.find((user) => user.name === name)
+}
+
 io.on("connection", (socket) => {
-    console.log("Someone has been connected")
+
+    //sending event to every user we use io.emit
+    // io.emit("testEvent", "Hello Event from Server")
+
+    //taking event from client we use socket.on
+    socket.on('newUser', (name) => {
+        addUser(name, socket.id)
+    })
+
+    socket.on('sendNotification', (sender, receiver) => {
+        io.to(getUser(receiver).socketId).emit('getNotification', {
+            sender
+        })
+    })
 
     socket.on("disconnect", () => {
-        console.log("Someone has been disconnected")
+        removeUser(socket.id)
     })
 });
 

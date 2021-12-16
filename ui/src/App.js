@@ -6,6 +6,8 @@ import Home from './Components/Home/Home.js';
 import { io } from 'socket.io-client'
 
 function App() {
+
+
   const [userx, setUserx] = useState("")
   const user = localStorage.getItem('userNotify')
 
@@ -14,10 +16,23 @@ function App() {
     window.location.reload()
   }
 
+  const [socket, setSocket] = useState(null)
+
   useEffect(() => {
-    const socket = io("http://localhost:5000");
+    //connecting to the socket server running on port 5000
+    setSocket(io("http://localhost:5000"))
     console.log(socket)
-  }, []);
+    //catching the message sent to every user from socket server
+    //we use socket.on
+    // console.log(socket.on("testEvent", (msg) => {
+    //   console.log(msg)
+    // }))
+  },[socket]);
+
+  useEffect(() => {
+    //sending event to server using socket.emit
+    socket?.emit('newUser', user)
+  }, [socket, user])
 
   return (
     <>
@@ -28,7 +43,7 @@ function App() {
               type="text" placeholder="Enter Username"
               name="" id="" />
             <button onClick={getUser}>Get Started <ArrowForwardIosIcon /> </button>
-          </div>) : (<Home user={user} />)
+          </div>) : (<Home socket={socket} user={user} />)
       }
     </>
   );

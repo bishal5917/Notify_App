@@ -1,15 +1,30 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import './home.css'
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { data } from '../dummydata'
 import Items from '../Items/Items';
 
-export default function Home({ user }) {
+export default function Home({ user, socket }) {
     const handleLogout = () => {
         localStorage.removeItem('userNotify')
         window.location.reload()
     }
+
+    const [notifics, setNotifics] = useState([])
+
+    //grabbing getNotification event emitted from the server
+
+    useEffect(() => {
+        //the data is the actual notification gotten and 
+        //we pushed it into the array
+        socket.on('getNotification', (data) => {
+            setNotifics((prev) => [...prev, data])
+        })
+    }, [socket]);
+
+    console.log(notifics)
+
     return (
         <>
             <div className="NavbarContainer">
@@ -26,7 +41,11 @@ export default function Home({ user }) {
             </div>
             <div className='feedx'>
                 {data.map((p) => (
-                    <Items key={p._id} post={p} />
+                    <Items
+                        socket={socket}
+                        user={user}
+                        key={p._id}
+                        post={p} />
                 ))}
 
             </div>
