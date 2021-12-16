@@ -1,0 +1,34 @@
+.NavbarContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(12, 84, 200);
+  margin: auto;
+  margin-top: 2rem;
+  width: 40vw;
+  padding: 1.5rem 1.5rem;
+}
+.namePart {
+  flex: 7;
+}
+.name {
+  font-size: 2rem;
+}
+.iconsPart {
+  display: flex;
+  flex: 1;
+  position: relative;
+}
+.iconsPart > * {
+  margin: 0.5rem;
+  cursor: pointer;
+}
+.nots {
+  position: absolute;
+  bottom: 0.7rem;
+  left: 1.1rem;
+  background-color: red;
+  border-radius: 100%;
+  padding: 0.1rem 0.2rem;
+  color: black;
+}

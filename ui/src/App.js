@@ -2,6 +2,7 @@ import './login.css'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import './App.css';
 import React, { useState } from 'react';
+import Home from './Components/Home/Home.js';
 
 function App() {
   const [userx, setUserx] = useState("")
@@ -9,6 +10,7 @@ function App() {
 
   const getUser = () => {
     localStorage.setItem('userNotify', userx)
+    window.location.reload()
   }
 
   return (
@@ -20,7 +22,7 @@ function App() {
               type="text" placeholder="Enter Username"
               name="" id="" />
             <button onClick={getUser}>Get Started <ArrowForwardIosIcon /> </button>
-          </div>) : (<div>{user}</div>)
+          </div>) : (<Home user={user} />)
       }
     </>
   );
