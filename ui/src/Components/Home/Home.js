@@ -14,16 +14,15 @@ export default function Home({ user, socket }) {
     const [notifics, setNotifics] = useState([])
 
     //grabbing getNotification event emitted from the server
+    //the data is the actual notification gotten and 
+    //we pushed it into the array
 
     useEffect(() => {
-        //the data is the actual notification gotten and 
-        //we pushed it into the array
-        socket.on('getNotification', (data) => {
-            setNotifics((prev) => [...prev, data])
-        })
-    }, [socket]);
+        socket?.on("getNotification", (data) => {
+            setNotifics((prev)=>[...prev,data]);
+        });
+    }, [socket, notifics]);
 
-    console.log(notifics)
 
     return (
         <>

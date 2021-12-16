@@ -39,7 +39,8 @@ io.on("connection", (socket) => {
     })
 
     socket.on('sendNotification', (sender, receiver) => {
-        io.to(getUser(receiver).socketId).emit('getNotification', {
+        const getter=getUser(receiver).socketId
+        io.to(getter.socketId).emit('getNotification', {
             sender
         })
     })
