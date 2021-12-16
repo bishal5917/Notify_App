@@ -19,11 +19,11 @@ export default function Home({ user, socket }) {
 
     useEffect(() => {
         socket?.on("getNotification", (data) => {
-            setNotifics((prev)=>[...prev,data]);
+            setNotifics((prev) => [...prev, data]);
         });
-    }, [socket, notifics]);
+    }, [socket]);
 
-
+    console.log(notifics)
     return (
         <>
             <div className="NavbarContainer">

@@ -14,9 +14,7 @@ export default function Items({ post, socket, user }) {
             sender: user,
             receiver: post.name
         })
-
     }
-
     //array.some method in javascript
     // const ages = [3, 10, 18, 20];
 
