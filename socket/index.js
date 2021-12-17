@@ -28,6 +28,7 @@ const getUser = (name) => {
     return onlineUsers.find((user) => user.name === name)
 }
 
+
 io.on("connection", (socket) => {
 
     //sending event to every user we use io.emit
@@ -36,11 +37,13 @@ io.on("connection", (socket) => {
     //taking event from client we use socket.on
     socket.on('newUser', (name) => {
         addUser(name, socket.id)
+        console.log(onlineUsers)
     })
 
     socket.on('sendNotification', (sender, receiver) => {
-        const getter=getUser(receiver).socketId
-        io.to(getter.socketId).emit('getNotification', {
+        const recever = getUser(receiver)
+        console.log(recever)
+        io.to(recever).emit('getNotification', {
             sender
         })
     })

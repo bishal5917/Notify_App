@@ -21,16 +21,18 @@ function App() {
   useEffect(() => {
     //connecting to the socket server running on port 5000
     setSocket(io("http://localhost:5000"))
+    // console.log(socket.id)
     //catching the message sent to every user from socket server
     //we use socket.on
     // console.log(socket.on("testEvent", (msg) => {
     //   console.log(msg)
     // }))
+    //sending event to server using socket.emit
+
   }, []);
 
   useEffect(() => {
-    //sending event to server using socket.emit
-    socket?.emit('newUser', user)
+    socket && socket.emit('newUser', user)
   }, [socket, user])
 
   return (
