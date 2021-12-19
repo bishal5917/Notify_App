@@ -9,10 +9,11 @@ export default function Items({ post, socket, user }) {
 
     const handleLiked = () => {
         setLiked(true)
+        const sender = user;
+        const receiver = post.name
         //creating an event when liked
         socket.emit('sendNotification', {
-            sender: user,
-            receiver: post.name
+            sender, receiver
         })
     }
     //array.some method in javascript

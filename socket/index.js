@@ -40,10 +40,11 @@ io.on("connection", (socket) => {
         console.log(onlineUsers)
     })
 
-    socket.on('sendNotification', (sender, receiver) => {
-        const recever = getUser(receiver)
-        console.log(recever)
-        io.to(recever).emit('getNotification', {
+    socket.on('sendNotification', ({sender, receiver}) => {
+        const foundOne = onlineUsers.find(({ name }) => name === receiver)
+        const socket_id = foundOne.socketId
+        console.log(socket_id)
+        io.to(socket_id).emit('getNotification', {
             sender
         })
     })
