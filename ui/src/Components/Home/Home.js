@@ -34,7 +34,10 @@ export default function Home({ user, socket }) {
                 </div>
                 <div className="iconsPart">
                     <NotificationsIcon />
-                    <span className="nots">2</span>
+                    {
+                        notifics.length > 0 &&
+                        <span className="nots">{notifics.length}</span>
+                    }
                     <LogoutIcon onClick={handleLogout} />
                 </div>
             </div>

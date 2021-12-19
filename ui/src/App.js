@@ -6,8 +6,6 @@ import Home from './Components/Home/Home.js';
 import { io } from 'socket.io-client'
 
 function App() {
-
-
   const [userx, setUserx] = useState("")
   const user = localStorage.getItem('userNotify')
 
