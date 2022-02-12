@@ -24,12 +24,19 @@ export default function Home({ user, socket }) {
     }, [socket]);
 
     console.log(notifics)
+
     return (
         <>
             <div className="NavbarContainer">
                 <div className="namePart">
                     <span className="name">
                         {user && user}
+                    </span>
+                    <span className="name">
+                        {notifics &&
+                            notifics.map(x => (
+                                <div>{x.sender} Liked your post</div>
+                            ))}
                     </span>
                 </div>
                 <div className="iconsPart">
@@ -49,6 +56,7 @@ export default function Home({ user, socket }) {
                         key={p._id}
                         post={p} />
                 ))}
+
 
             </div>
         </>
